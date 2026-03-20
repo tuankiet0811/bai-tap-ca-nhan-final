@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Trần Tuấn Kiệt</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
+            --dark-bg: #f8f9fc;
+            --card-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: #3a3b45;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 100px 0;
+            color: white;
+            margin-bottom: -100px;
+        }
+
+        .portfolio-container {
+            margin-top: 20px;
+            padding-bottom: 50px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-image-wrapper {
+            background: #f1f3f9;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .profile-image-wrapper i {
+            font-size: 100px;
+            color: var(--primary-color);
+        }
+
+        .info-section {
+            padding: 40px;
+        }
+
+        .info-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4e73df;
+            margin-bottom: 10px;
+        }
+
+        .info-subtitle {
+            font-size: 1.1rem;
+            color: #858796;
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fc;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .detail-item:hover {
+            background: #eaecf4;
+        }
+
+        .detail-icon {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .detail-content label {
+            display: block;
+            font-size: 0.85rem;
+            color: #b7b9cc;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .detail-content span {
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .hobbies-tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4e73df;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-edit {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(78, 115, 223, 0.4);
+        }
+
+        .btn-edit:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(78, 115, 223, 0.5);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #858796;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero Background Section -->
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Xin chào! Tôi là Kiệt</h1>
+        <p class="lead opacity-75">Chào mừng đến với không gian cá nhân của tôi</p>
+    </div>
+</div>
+
+<div class="container portfolio-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="profile-card">
+                <div class="row g-0">
+                    <!-- Left Column: Image/Summary -->
+                    <div class="col-md-5 profile-image-wrapper">
+                        <i class="fas fa-user-circle"></i>
+                        <h3 class="mt-3 fw-bold" th:text="${profile.fullName}">Trần Tuấn Kiệt</h3>
+                        <p class="text-muted" th:text="${profile.major}">Công nghệ thông tin</p>
+                        
+                        <div class="mt-4 px-3 text-start">
+                            <h6 class="fw-bold mb-3 text-uppercase small">Sở thích</h6>
+                            <div th:if="${profile.hobbies != null}">
+                                <span th:each="hobby : ${#strings.arraySplit(profile.hobbies, ',')}" 
+                                      class="hobbies-tag" 
+                                      th:text="${hobby.trim()}">Code</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Details -->
+                    <div class="col-md-7 info-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="fw-bold m-0">Thông tin chi tiết</h4>
+                            <a th:href="@{/edit}" class="btn btn-primary btn-edit btn-sm text-white">
+                                <i class="fas fa-edit me-2"></i> Chỉnh sửa
+                            </a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Detail Items -->
+                                <div class="detail-item">
+                                    <div class="detail-icon"><i class="fas fa-id-card"></i></div>
+                                    <div class="detail-content">
+                                        <label>Mã số sinh viên</label>
+                                        <span th:text="${profile.studentId}">22110123</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-item">
+                                    <div class="detail-icon"><i class="fas fa-calendar-alt"></i></div>
+                                    <div class="detail-content">
+                                        <label>Tuổi</label>
+                                        <span th:text="${profile.age}">22</span>
+                                    </div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="detail-icon"><i class="fas fa-university"></i></div>
+                                    <div class="detail-content">
+                                        <label>Trường đại học</label>
+                                        <span th:text="${profile.school}">HUTECH University</span>
+                                    </div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+                                    <div class="detail-content">
+                                        <label>Chuyên ngành</label>
+                                        <span th:text="${profile.specialization}">Kỹ thuật phần mềm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="mb-0">© 2026 Trần Tuấn Kiệt - Được xây dựng bằng Spring Boot & Thymeleaf</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

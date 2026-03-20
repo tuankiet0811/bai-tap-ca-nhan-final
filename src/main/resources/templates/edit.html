@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật Portfolio - Trần Tuấn Kiệt</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --success-color: #1cc88a;
+            --dark-bg: #f8f9fc;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            padding: 50px 0;
+        }
+
+        .edit-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 40px;
+        }
+
+        .edit-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .edit-header i {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #4e73df;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fc;
+            border-right: none;
+            color: #d1d3e2;
+        }
+
+        .form-control {
+            border-left: none;
+            padding: 12px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #d1d3e2;
+        }
+
+        .input-group:focus-within .input-group-text {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .input-group:focus-within .form-control {
+            border-color: var(--primary-color);
+        }
+
+        .btn-action {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-save {
+            background: var(--success-color);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(28, 200, 138, 0.3);
+        }
+
+        .btn-save:hover {
+            background: #17a673;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background: #f8f9fc;
+            border: 1px solid #d1d3e2;
+            color: #858796;
+        }
+
+        .btn-cancel:hover {
+            background: #eaecf4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="edit-card">
+        <div class="edit-header">
+            <i class="fas fa-user-edit"></i>
+            <h2 class="fw-bold">Cập nhật Portfolio</h2>
+            <p class="text-muted">Thay đổi thông tin để làm mới trang cá nhân của bạn</p>
+        </div>
+
+        <form th:action="@{/edit}" th:object="${profile}" method="post">
+            <div class="row">
+                <!-- Full Name -->
+                <div class="col-md-12 mb-4">
+                    <label class="form-label text-uppercase">Họ và tên</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" th:field="*{fullName}" placeholder="Nhập họ tên đầy đủ" required>
+                    </div>
+                </div>
+
+                <!-- Student ID and Age -->
+                <div class="col-md-6 mb-4">
+                    <label class="form-label text-uppercase">Mã số sinh viên</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                        <input type="text" class="form-control" th:field="*{studentId}" placeholder="Ví dụ: 22110123" required>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label class="form-label text-uppercase">Tuổi</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+                        <input type="number" class="form-control" th:field="*{age}" min="1" max="150" required>
+                    </div>
+                </div>
+
+                <!-- University -->
+                <div class="col-md-12 mb-4">
+                    <label class="form-label text-uppercase">Trường đại học</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-university"></i></span>
+                        <input type="text" class="form-control" th:field="*{school}" placeholder="Ví dụ: HUTECH University" required>
+                    </div>
+                </div>
+
+                <!-- Major and Specialization -->
+                <div class="col-md-6 mb-4">
+                    <label class="form-label text-uppercase">Ngành học</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-book"></i></span>
+                        <input type="text" class="form-control" th:field="*{major}" placeholder="Ví dụ: CNTT" required>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label class="form-label text-uppercase">Chuyên ngành</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                        <input type="text" class="form-control" th:field="*{specialization}" placeholder="Ví dụ: Kỹ thuật phần mềm" required>
+                    </div>
+                </div>
+
+                <!-- Hobbies -->
+                <div class="col-md-12 mb-4">
+                    <label class="form-label text-uppercase">Sở thích (Cách nhau bằng dấu phẩy)</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-heart"></i></span>
+                        <textarea class="form-control" th:field="*{hobbies}" rows="3" placeholder="Ví dụ: Lập trình, Đọc sách, Chơi game"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between mt-2">
+                <a href="/" class="btn btn-action btn-cancel">
+                    <i class="fas fa-times me-2"></i> Hủy bỏ
+                </a>
+                <button type="submit" class="btn btn-action btn-save">
+                    <i class="fas fa-check me-2"></i> Lưu thay đổi
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
